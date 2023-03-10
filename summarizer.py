@@ -1,20 +1,15 @@
-"""
-This module contains the summarizer factory and all the summarizers for
-quokka. The summarizers are functions that take a list of values and return a
-single value. These summarizers are meant to be used by the groupby function 
-to aggregate data and return desired feature engineering results.
-"""
 import polars as pl
-from summarizer import *
+from summarizer_utils import *
 
-class SummarizerFactory:
-    def __init__(self, func, *args):
-        self.func = func
-        self.args = args
+# TODO: Where do I check for the validity of the input arguments?
+def summarize(df, SummarizerFactory):
+    """
+    This function takes a polars DataFrame, and a SummarizerFactory object, and returns
+    a polars DataFrame with the summarizer function applied to the DataFrame.
+    """
+    return SummarizerFactory.__call__(df, *SummarizerFactory.args)
 
 
-# am i going to check upstream for the right parameters?
-SummarizerFactory("ewma")
 
     
     
