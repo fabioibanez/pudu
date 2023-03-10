@@ -134,7 +134,30 @@ def min(df, column):
     out = df.select(pl.col(column).min().alias("min"))
     return out[0,0]
 
-# TODO: implement
+
+def stddev(df, column):
+    """
+    Calculates the standard deviation of a column.
+    """
+    out = df.select(pl.col(column).std().alias("stddev"))
+    return out[0,0]
+
+def sum(df, column):
+    """
+    Calculates the sum of a column.
+    """
+    out = df.select(pl.col(column).sum().alias("sum"))
+    return out[0,0]
+
+def variance(df, column):
+    """
+    Calculates the variance of a column.
+    """
+    out = df.select(pl.col(column).var().alias("variance"))
+    print(out)
+    return out[0,0]
+
+#################### TODO: IMPLEMENT THESE ####################
 def nth_central_moment(df, column, n):
     """
     Calculates the nth central moment of a column.
@@ -164,27 +187,6 @@ def skewness(df, column):
     Calculates the skewness of a column.
     """
     return df.skewness()
-
-def stddev(df, column):
-    """
-    Calculates the standard deviation of a column.
-    """
-    return df.std()
-
-def sum(df, column):
-    """
-    Calculates the sum of a column.
-    """
-    out = df.select(pl.col(column).sum().alias("sum"))
-    return out[0,0]
-
-def variance(df, column):
-    """
-    Calculates the variance of a column.
-    """
-    out = df.select(pl.col(column).var().alias("variance"))
-    print(out)
-    return out[0,0]
 
 def weighted_correlation(df, column, other_column, weight_column):
     """

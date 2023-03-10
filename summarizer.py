@@ -7,8 +7,6 @@ to aggregate data and return desired feature engineering results.
 import polars as pl
 from summarizer import *
 
-# also create the summarize function which takes in a SummarizerFactory, I believe
-
 class SummarizerFactory:
     def __init__(self, func, *args):
         self.func = func
@@ -18,5 +16,6 @@ class SummarizerFactory:
 # am i going to check upstream for the right parameters?
 SummarizerFactory("ewma")
 
+    
     
 

@@ -150,6 +150,15 @@ def test_variance():
     # TODO: write assertions
     print("test_variance passed")
 
+def test_stddev():
+    df = pl.DataFrame({
+        "a": [1, 2, 3, 4, 5],
+        "b": [5, 4, 3, 2, 1],
+        "c": [1, 2, 3, 4, 5],
+    })
+
+    # TODO: write assertions
+
 def test_():
     test_correlation()
     test_count()
