@@ -9,8 +9,6 @@ def summarize(df, SummarizerFactory):
     """
     return SummarizerFactory.__call__(df, *SummarizerFactory.args)
 
+# TODO: Window summarizer
 
-
-    
-    
 

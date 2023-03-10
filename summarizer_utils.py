@@ -10,7 +10,6 @@ import polars as pl
 
 # these are the supported summarizer functions that are implemented in polars
 __all__ = [
-    'SummarizerFactory',
     'correlation',
     'count',
     'covariance',
@@ -37,10 +36,9 @@ __all__ = [
     'zscore',
 ]
 
-
 class SummarizerFactory:
     def __init__(self, func, *args):
-        self.func = func
+        self.func = func_dict[func]
         self.args = args
 
     def __call__(self, df, *args):
@@ -224,4 +222,29 @@ class SummarizerFactory:
         """
         pass
 
-
+func_dict = {
+    "correlation": SummarizerFactory.correlation,
+    "count": SummarizerFactory.count,
+    "covariance": SummarizerFactory.covariance,
+    "dot_product": SummarizerFactory.dot_product,
+    "ewma_halflife": SummarizerFactory.ewma_halflife,
+    "ewma": SummarizerFactory.ewma,
+    "geometric_mean": SummarizerFactory.geometric_mean,
+    "kurtosis": SummarizerFactory.kurtosis,
+    "linear_regression": SummarizerFactory.linear_regression,
+    "max": SummarizerFactory.max,
+    "mean": SummarizerFactory.mean,
+    "min": SummarizerFactory.min,
+    "stddev": SummarizerFactory.stddev,
+    "sum": SummarizerFactory.sum,
+    "variance": SummarizerFactory.variance,
+    "nth_central_moment": SummarizerFactory.nth_central_moment,
+    "nth_moment": SummarizerFactory.nth_moment,
+    "product": SummarizerFactory.product,
+    "quantile": SummarizerFactory.quantile,
+    "skewness": SummarizerFactory.skewness,
+    "weighted_correlation": SummarizerFactory.weighted_correlation,
+    "weighted_covariance": SummarizerFactory.weighted_covariance,
+    "weighted_mean": SummarizerFactory.weighted_mean,
+    "zscore": SummarizerFactory.zscore
+}
