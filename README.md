@@ -2,7 +2,7 @@
 <!-- ![](https://github.com/fabioibanez/pudu/blob/main/pudu.png) -->
 
 <p align="center">
-  <img src="https://github.com/fabioibanez/pudu/blob/main/pudu.png" alt="Title"/>
+  <img src="https://github.com/fabioibanez/pudu/blob/main/pudu.png" width="100" height="100" alt="Title"/>
 </p>
 
 
