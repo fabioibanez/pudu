@@ -15,7 +15,6 @@ class SummarizerFactory:
         self.args = args
 
 
-
 # am i going to check upstream for the right parameters?
 SummarizerFactory("ewma")
 

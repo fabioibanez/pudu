@@ -12,7 +12,7 @@ __all__ = [
     'count',
     'covariance',
     'dot_product',
-    'ema_halflife',
+    'ewma_halflife',
     'ewma',
     'geometric_mean',
     'kurtosis',
@@ -30,7 +30,7 @@ __all__ = [
     'variance',
     'weighted_correlation',
     'weighted_covariance',
-    'weighted_mean',
+    'weighted_mean', 
     'zscore',
 ]
 
@@ -49,49 +49,63 @@ def correlation(df, column, other_column):
         >>> df.corr("a", "c")
         1.0
     """
-    return df.select(pl.corr("a", "b"))
 
-def count(df, column):
+    out = df.select(pl.corr(column, other_column))
+    return out[0, 0]
+
+def count(df, col):
     """
     Counts the number of non-null values in a column.
     """
-    return df.count()
+    out = df.select(pl.col(col).count().alias("count"))
+    return out[0,0]
+    
 
+# weird behaviour
 def covariance(df, column, other_column):
     """
     Calculates the covariance between two columns.
     """
-    return df.cov(column, other_column)
+    out = df.select(pl.cov(column, other_column))
+    print(out[0, 0])
+    return out[0, 0]
 
 def dot_product(df, column, other_column):
     """
     Calculates the dot product between two columns.
     """
-    return df.dot(column, other_column)
+    out = df.select(pl.col(column).dot(pl.col(other_column)).alias("dot_product"))
+    return out[0, 0]
 
-def ema_halflife(df, column, halflife):
+# TODO: should support min_periods: minimum number of observations in window required to have a value (otherwise result is null)
+def ewma_halflife(df, column, halflife):
     """
     Calculates the exponential moving average of a column.
     """
-    return df.ewm(halflife=halflife).mean()
+    out = df.select(pl.col(column).ewm_mean(half_life = halflife).alias("ewma"))
+    return out
 
 def ewma(df, column, alpha):
     """
     Calculates the exponential moving average of a column.
     """
-    return df.ewm(alpha=alpha).mean()
+    out = df.select(pl.col(column).ewm_mean(alpha = alpha).alias("ewma"))
+    print(out)
 
 def geometric_mean(df, column):
     """
     Calculates the geometric mean of a column.
     """
-    return df.geometric_mean()
+    out = df.select(pl.col(column).geometric_mean().alias("geometric_mean"))
+    print(out)
+    # return df.geometric_mean()
 
 def kurtosis(df, column):
     """
     Calculates the kurtosis of a column.
     """
-    return df.kurtosis()
+    out = df.select(pl.col(column).kurtosis().alias("kurtosis"))
+    return out[0, 0]
 
 def linear_regression(df, column, other_column):
     """
@@ -103,25 +117,29 @@ def max(df, column):
     """
     Calculates the maximum value of a column.
     """
-    return df.max()
+    out = df.select(pl.col(column).max().alias("max"))
+    return out[0,0]
 
 def mean(df, column):
     """
     Calculates the mean of a column.
     """
-    return df.mean()
+    out = df.select(pl.col(column).mean().alias("mean"))
+    return out[0,0]
 
 def min(df, column):
     """
     Calculates the minimum value of a column.
     """
-    return df.min()
+    out = df.select(pl.col(column).min().alias("min"))
+    return out[0,0]
 
+# TODO: implement
 def nth_central_moment(df, column, n):
     """
     Calculates the nth central moment of a column.
     """
-    return df.nth_central_moment(n)
+    pass
 
 def nth_moment(df, column, n):
     """
@@ -157,13 +175,16 @@ def sum(df, column):
     """
     Calculates the sum of a column.
     """
-    return df.sum()
+    out = df.select(pl.col(column).sum().alias("sum"))
+    return out[0,0]
 
 def variance(df, column):
     """
     Calculates the variance of a column.
     """
-    return df.var()
+    out = df.select(pl.col(column).var().alias("variance"))
+    print(out)
+    return out[0,0]
 
 def weighted_correlation(df, column, other_column, weight_column):
     """
@@ -181,7 +202,7 @@ def weighted_mean(df, column, weight_column):
     """
     Calculates the mean of a column.
     """
-    return df.mean(weight_column)
+    pass
 
 def zscore(df, column):
     """
